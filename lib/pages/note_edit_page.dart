@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:optimond_001_basic_crud/models/note.dart';
 
 class NoteEditPage extends StatefulWidget {
-  final Function onSave;
+  final Note entity;
+  final Function(Note note) onSave;
+
   NoteEditPage({
+    required this.entity,
     required this.onSave,
   });
 
@@ -11,8 +15,24 @@ class NoteEditPage extends StatefulWidget {
 }
 
 class _NoteEditPageState extends State<NoteEditPage> {
+  final _titleController = TextEditingController();
+  final _notesController = TextEditingController();
+
   void onViewSave() {
-    widget.onSave();
+    final enteredTitle = _titleController.text;
+    final enteredNotes = _notesController.text;
+
+    if (enteredTitle.isEmpty || enteredNotes.isEmpty) {
+      return;
+    }
+
+    widget.onSave(Note(
+      id: DateTime.now().toString(),
+      title: enteredTitle,
+      notes: enteredNotes,
+    ));
+
+    Navigator.of(context).pop(); // close the top most widget
   }
 
   @override
@@ -26,16 +46,18 @@ class _NoteEditPageState extends State<NoteEditPage> {
           children: <Widget>[
             TextField(
               decoration: InputDecoration(labelText: 'Title'),
+              controller: _titleController,
             ),
             SizedBox(
               height: 10,
             ),
             TextField(
               decoration: InputDecoration(
-                labelText: 'Summary',
+                labelText: 'Notes',
               ),
               keyboardType: TextInputType.multiline,
               maxLines: null,
+              controller: _notesController,
             ),
             SizedBox(
               height: 10,
