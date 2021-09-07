@@ -21,7 +21,7 @@ class NoteItem extends StatelessWidget {
           ),
         ),
         title: Text('Title'),
-        subtitle: Text('summary'),
+        subtitle: Text('Note'),
         trailing: IconButton(
           icon: Icon(Icons.delete),
           color: Theme.of(context).errorColor,

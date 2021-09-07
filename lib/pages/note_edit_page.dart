@@ -32,7 +32,7 @@ class _NoteEditPageState extends State<NoteEditPage> {
             ),
             TextField(
               decoration: InputDecoration(
-                labelText: 'Summary',
+                labelText: 'Notes',
               ),
               keyboardType: TextInputType.multiline,
               maxLines: null,
