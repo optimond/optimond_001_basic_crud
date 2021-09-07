@@ -26,13 +26,20 @@ class _NoteEditPageState extends State<NoteEditPage> {
       return;
     }
 
-    widget.onSave(Note(
-      id: DateTime.now().toString(),
+    Note updateNote = widget.entity.copyWith(
       title: enteredTitle,
       notes: enteredNotes,
-    ));
+    );
+    widget.onSave(updateNote);
 
     Navigator.of(context).pop(); // close the top most widget
+  }
+
+  @override
+  void didChangeDependencies() {
+    _titleController.text = widget.entity.title;
+    _notesController.text = widget.entity.notes;
+    super.didChangeDependencies();
   }
 
   @override
@@ -47,6 +54,9 @@ class _NoteEditPageState extends State<NoteEditPage> {
             TextField(
               decoration: InputDecoration(labelText: 'Title'),
               controller: _titleController,
+              onSubmitted: (val) {
+                onViewSave();
+              },
             ),
             SizedBox(
               height: 10,
@@ -55,9 +65,10 @@ class _NoteEditPageState extends State<NoteEditPage> {
               decoration: InputDecoration(
                 labelText: 'Notes',
               ),
-              keyboardType: TextInputType.multiline,
-              maxLines: null,
               controller: _notesController,
+              onSubmitted: (val) {
+                onViewSave();
+              },
             ),
             SizedBox(
               height: 10,
