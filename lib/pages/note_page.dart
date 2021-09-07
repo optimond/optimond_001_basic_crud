@@ -45,13 +45,13 @@ class _NotePageState extends State<NotePage> {
         actions: [
           TextButton(
             onPressed: () {
-              onDelete();
               Navigator.of(ctx).pop();
             },
             child: Text('No'),
           ),
           TextButton(
             onPressed: () {
+              onDelete();
               Navigator.of(ctx).pop();
             },
             child: Text('Yes'),
